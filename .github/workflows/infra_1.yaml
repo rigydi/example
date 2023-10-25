@@ -8,25 +8,10 @@ on:
       - 'infra_1/**'
 
 jobs:
-
-  test:
-    name: Input check
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checking your input
-        run: |
-          echo "github.event.pull_request.merged           : $MERGED_RAW"
-          echo "github.event.pull_request.merged == 'true' : $MERGED_TRUE_STR"
-          echo "github.event.pull_request.merged  == true  : $MERGED_TRUE_BOOL"
-        env:
-          MERGED_RAW: ${{ github.event.pull_request.merged }}
-          MERGED_TRUE_STR: ${{ github.event.pull_request.merged == 'true' }}
-          MERGED_TRUE_BOOL: ${{ github.event.pull_request.merged == true }}
   #########################################
   # Dev
   #########################################
   plan_dev:
-    if: github.event.action == 'opened'
     uses: rigydi/workflows/.github/workflows/terraform_plan.yaml@main
     with:
       ########################################################
@@ -93,7 +78,6 @@ jobs:
   # Val
   #########################################
   plan_val:
-    if: github.event.action == 'opened'
     uses: rigydi/workflows/.github/workflows/terraform_plan.yaml@main
     with:
       ########################################################
@@ -123,7 +107,7 @@ jobs:
 
   deploy_val:
     if: github.event.pull_request.merged
-    needs: plan_dev
+    needs: plan_val
     uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
       ########################################################
@@ -160,7 +144,6 @@ jobs:
   # Prd
   #########################################
   plan_prd:
-    if: github.event.action == 'opened'
     uses: rigydi/workflows/.github/workflows/terraform_plan.yaml@main
     with:
       ########################################################
@@ -190,7 +173,7 @@ jobs:
 
   deploy_prd:
     if: github.event.pull_request.merged
-    needs: plan_dev
+    needs: plan_prd
     uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
       ########################################################
