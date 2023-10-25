@@ -1,3 +1,7 @@
+terraform {
+  backend "azurerm" {
+  }
+}
 
 terraform {
   required_version = "~> 1.4"
