@@ -13,7 +13,7 @@ jobs:
   # Dev
   #########################################
   plan_dev:
-    uses: rigydi/workflows/.github/workflows/terraform_plan.yml@main
+    uses: rigydi/workflows/.github/workflows/terraform_plan.yaml@main
     with:
       ########################################################
       # Terraform AZURERM Backend
@@ -42,7 +42,7 @@ jobs:
 
   deploy_dev:
     needs: plan_dev
-    uses: rigydi/workflows/.github/workflows/terraform_apply.yml@main
+    uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
       ########################################################
       # Terraform AZURERM Backend
@@ -78,7 +78,7 @@ jobs:
   #########################################
 
   plan_val:
-    uses: rigydi/workflows/.github/workflows/terraform_plan.yml@main
+    uses: rigydi/workflows/.github/workflows/terraform_plan.yaml@main
     with:
       ########################################################
       # Terraform AZURERM Backend
@@ -107,7 +107,7 @@ jobs:
 
   deploy_val:
     needs: plan_val
-    uses: rigydi/workflows/.github/workflows/terraform_apply.yml@main
+    uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
       ########################################################
       # Terraform AZURERM Backend
@@ -143,7 +143,7 @@ jobs:
   #########################################
 
   plan_prd:
-    uses: rigydi/workflows/.github/workflows/terraform_plan.yml@main
+    uses: rigydi/workflows/.github/workflows/terraform_plan.yaml@main
     with:
       ########################################################
       # Terraform AZURERM Backend
@@ -172,7 +172,7 @@ jobs:
 
   deploy_prd:
     needs: plan_prd
-    uses: rigydi/workflows/.github/workflows/terraform_apply.yml@main
+    uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
       ########################################################
       # Terraform AZURERM Backend
