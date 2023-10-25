@@ -13,7 +13,7 @@ jobs:
   # Dev
   #########################################
   plan_dev:
-    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    if: github.event.action == 'opened'
     uses: rigydi/workflows/.github/workflows/terraform_plan.yaml@main
     with:
       ########################################################
@@ -42,7 +42,7 @@ jobs:
 
 
   deploy_dev:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == 'true'
+    if: github.event.pull_request.merged == true
     needs: plan_dev
     uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
@@ -80,7 +80,7 @@ jobs:
   # Val
   #########################################
   plan_val:
-    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    if: github.event.action == 'opened'
     uses: rigydi/workflows/.github/workflows/terraform_plan.yaml@main
     with:
       ########################################################
@@ -109,7 +109,7 @@ jobs:
 
 
   deploy_val:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == 'true'
+    if: github.event.pull_request.merged == true
     needs: plan_dev
     uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
@@ -147,7 +147,7 @@ jobs:
   # Prd
   #########################################
   plan_prd:
-    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    if: github.event.action == 'opened'
     uses: rigydi/workflows/.github/workflows/terraform_plan.yaml@main
     with:
       ########################################################
@@ -176,7 +176,7 @@ jobs:
 
 
   deploy_prd:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == 'true'
+    if: github.event.pull_request.merged == true
     needs: plan_dev
     uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
