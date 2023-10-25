@@ -42,5 +42,3 @@ resource "azurerm_resource_group" "this" {
   name     = "rg-${var.workload}-${var.environment}"
   location = "westeurope"
 }
-
-# Comment
