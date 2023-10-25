@@ -42,7 +42,7 @@ jobs:
 
 
   deploy_dev:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == 'true' && github.event.pull_request.base.ref == 'main'
+    if: github.event.pull_request.merged == true
     needs: plan_dev
     uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
@@ -109,7 +109,7 @@ jobs:
 
 
   deploy_val:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == 'true' && github.event.pull_request.base.ref == 'main'
+    if: github.event.pull_request.merged == true
     needs: plan_dev
     uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
@@ -176,7 +176,7 @@ jobs:
 
 
   deploy_prd:
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == 'true' && github.event.pull_request.base.ref == 'main'
+    if: github.event.pull_request.merged == true
     needs: plan_dev
     uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
