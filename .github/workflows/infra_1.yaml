@@ -2,7 +2,7 @@ name: "infra_1"
 
 on:
   pull_request:
-    types: [opened, closed]
+    types: [opened]
     branches: [main]
     paths:
       - 'infra_1/**'
@@ -42,7 +42,7 @@ jobs:
 
 
   deploy_dev:
-    if: github.event.action == 'closed'
+    if: github.event.pull_request.merged == true
     needs: plan_dev
     uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
@@ -109,7 +109,7 @@ jobs:
 
 
   deploy_val:
-    if: github.event.action == 'closed'
+    if: github.event.pull_request.merged == true
     needs: plan_dev
     uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
@@ -176,7 +176,7 @@ jobs:
 
 
   deploy_prd:
-    if: github.event.action == 'closed'
+    if: github.event.pull_request.merged == true
     needs: plan_dev
     uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
