@@ -55,7 +55,7 @@ jobs:
 
 
   deploy_dev:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged
     needs: plan_dev
     uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
@@ -122,7 +122,7 @@ jobs:
 
 
   deploy_val:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged
     needs: plan_dev
     uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
@@ -189,7 +189,7 @@ jobs:
 
 
   deploy_prd:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged
     needs: plan_dev
     uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
     with:
