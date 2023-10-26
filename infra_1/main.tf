@@ -1,3 +1,4 @@
+# Comment
 terraform {
   backend "azurerm" {
   }
