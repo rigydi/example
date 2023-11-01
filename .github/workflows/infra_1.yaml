@@ -37,170 +37,171 @@ jobs:
       arm_backend_subscription_id: ${{ secrets.arm_backend_subscription_id }}
       arm_client_id: ${{ secrets.arm_client_id }}
       arm_client_secret: ${{ secrets.arm_client_secret }}
+      arm_use_oidc: true
 
 
-  deploy_dev:
-    if: github.event.pull_request.merged
-    needs: plan_dev
-    uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
-    with:
-      ########################################################
-      # Terraform AZURERM Backend
-      # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
-      ########################################################
-      backend_resource_group_name: rg-backend-all
-      backend_storage_account_name: stbackendallgcmld
-      backend_container_name: blob-backend-all
-      backend_statefile_name: infra_1_dev.tfstate
-      ########################################################
-      # Github
-      # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
-      ########################################################
-      github_environment: dev
-      ########################################################
-      # Terraform
-      ########################################################
-      terraform_version: 1.5.5
-      tfvars_filename: dev.tfvars
-      working_directory: infra_1
-    secrets:
-      ########################################################
-      # Terraform Azure Provider Authentication
-      # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform
-      ########################################################
-      arm_tenant_id: ${{ secrets.arm_tenant_id }}
-      arm_backend_subscription_id: ${{ secrets.arm_backend_subscription_id }}
-      arm_client_id: ${{ secrets.arm_client_id }}
-      arm_client_secret: ${{ secrets.arm_client_secret }}
+  # deploy_dev:
+  #   if: github.event.pull_request.merged
+  #   needs: plan_dev
+  #   uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
+  #   with:
+  #     ########################################################
+  #     # Terraform AZURERM Backend
+  #     # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
+  #     ########################################################
+  #     backend_resource_group_name: rg-backend-all
+  #     backend_storage_account_name: stbackendallgcmld
+  #     backend_container_name: blob-backend-all
+  #     backend_statefile_name: infra_1_dev.tfstate
+  #     ########################################################
+  #     # Github
+  #     # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
+  #     ########################################################
+  #     github_environment: dev
+  #     ########################################################
+  #     # Terraform
+  #     ########################################################
+  #     terraform_version: 1.5.5
+  #     tfvars_filename: dev.tfvars
+  #     working_directory: infra_1
+  #   secrets:
+  #     ########################################################
+  #     # Terraform Azure Provider Authentication
+  #     # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform
+  #     ########################################################
+  #     arm_tenant_id: ${{ secrets.arm_tenant_id }}
+  #     arm_backend_subscription_id: ${{ secrets.arm_backend_subscription_id }}
+  #     arm_client_id: ${{ secrets.arm_client_id }}
+  #     arm_client_secret: ${{ secrets.arm_client_secret }}
 
 
-  #########################################
-  # Val
-  #########################################
-  plan_val:
-    uses: rigydi/workflows/.github/workflows/terraform_plan_oidc.yaml@main
-    with:
-      ########################################################
-      # Terraform AZURERM Backend
-      # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
-      ########################################################
-      backend_resource_group_name: rg-backend-all
-      backend_storage_account_name: stbackendallgcmld
-      backend_container_name: blob-backend-all
-      backend_statefile_name: infra_1_val.tfstate
-      ########################################################
-      # Terraform
-      ########################################################
-      terraform_version: 1.5.5
-      tfvars_filename: val.tfvars
-      working_directory: infra_1
-    secrets:
-      ########################################################
-      # Terraform Azure Provider Authentication
-      # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform
-      ########################################################
-      arm_tenant_id: ${{ secrets.arm_tenant_id }}
-      arm_backend_subscription_id: ${{ secrets.arm_backend_subscription_id }}
-      arm_client_id: ${{ secrets.arm_client_id }}
-      arm_client_secret: ${{ secrets.arm_client_secret }}
+  # #########################################
+  # # Val
+  # #########################################
+  # plan_val:
+  #   uses: rigydi/workflows/.github/workflows/terraform_plan_oidc.yaml@main
+  #   with:
+  #     ########################################################
+  #     # Terraform AZURERM Backend
+  #     # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
+  #     ########################################################
+  #     backend_resource_group_name: rg-backend-all
+  #     backend_storage_account_name: stbackendallgcmld
+  #     backend_container_name: blob-backend-all
+  #     backend_statefile_name: infra_1_val.tfstate
+  #     ########################################################
+  #     # Terraform
+  #     ########################################################
+  #     terraform_version: 1.5.5
+  #     tfvars_filename: val.tfvars
+  #     working_directory: infra_1
+  #   secrets:
+  #     ########################################################
+  #     # Terraform Azure Provider Authentication
+  #     # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform
+  #     ########################################################
+  #     arm_tenant_id: ${{ secrets.arm_tenant_id }}
+  #     arm_backend_subscription_id: ${{ secrets.arm_backend_subscription_id }}
+  #     arm_client_id: ${{ secrets.arm_client_id }}
+  #     arm_client_secret: ${{ secrets.arm_client_secret }}
 
 
-  deploy_val:
-    if: github.event.pull_request.merged
-    needs: [plan_val, deploy_dev]
-    uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
-    with:
-      ########################################################
-      # Terraform AZURERM Backend
-      # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
-      ########################################################
-      backend_resource_group_name: rg-backend-all
-      backend_storage_account_name: stbackendallgcmld
-      backend_container_name: blob-backend-all
-      backend_statefile_name: infra_1_val.tfstate
-      ########################################################
-      # Github
-      # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
-      ########################################################
-      github_environment: val
-      ########################################################
-      # Terraform
-      ########################################################
-      terraform_version: 1.5.5
-      tfvars_filename: val.tfvars
-      working_directory: infra_1
-    secrets:
-      ########################################################
-      # Terraform Azure Provider Authentication
-      # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform
-      ########################################################
-      arm_tenant_id: ${{ secrets.arm_tenant_id }}
-      arm_backend_subscription_id: ${{ secrets.arm_backend_subscription_id }}
-      arm_client_id: ${{ secrets.arm_client_id }}
-      arm_client_secret: ${{ secrets.arm_client_secret }}
+  # deploy_val:
+  #   if: github.event.pull_request.merged
+  #   needs: [plan_val, deploy_dev]
+  #   uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
+  #   with:
+  #     ########################################################
+  #     # Terraform AZURERM Backend
+  #     # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
+  #     ########################################################
+  #     backend_resource_group_name: rg-backend-all
+  #     backend_storage_account_name: stbackendallgcmld
+  #     backend_container_name: blob-backend-all
+  #     backend_statefile_name: infra_1_val.tfstate
+  #     ########################################################
+  #     # Github
+  #     # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
+  #     ########################################################
+  #     github_environment: val
+  #     ########################################################
+  #     # Terraform
+  #     ########################################################
+  #     terraform_version: 1.5.5
+  #     tfvars_filename: val.tfvars
+  #     working_directory: infra_1
+  #   secrets:
+  #     ########################################################
+  #     # Terraform Azure Provider Authentication
+  #     # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform
+  #     ########################################################
+  #     arm_tenant_id: ${{ secrets.arm_tenant_id }}
+  #     arm_backend_subscription_id: ${{ secrets.arm_backend_subscription_id }}
+  #     arm_client_id: ${{ secrets.arm_client_id }}
+  #     arm_client_secret: ${{ secrets.arm_client_secret }}
 
 
-  #########################################
-  # Prd
-  #########################################
-  plan_prd:
-    uses: rigydi/workflows/.github/workflows/terraform_plan_oidc.yaml@main
-    with:
-      ########################################################
-      # Terraform AZURERM Backend
-      # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
-      ########################################################
-      backend_resource_group_name: rg-backend-all
-      backend_storage_account_name: stbackendallgcmld
-      backend_container_name: blob-backend-all
-      backend_statefile_name: infra_1_prd.tfstate
-      ########################################################
-      # Terraform
-      ########################################################
-      terraform_version: 1.5.5
-      tfvars_filename: prd.tfvars
-      working_directory: infra_1
-    secrets:
-      ########################################################
-      # Terraform Azure Provider Authentication
-      # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform
-      ########################################################
-      arm_tenant_id: ${{ secrets.arm_tenant_id }}
-      arm_backend_subscription_id: ${{ secrets.arm_backend_subscription_id }}
-      arm_client_id: ${{ secrets.arm_client_id }}
-      arm_client_secret: ${{ secrets.arm_client_secret }}
+  # #########################################
+  # # Prd
+  # #########################################
+  # plan_prd:
+  #   uses: rigydi/workflows/.github/workflows/terraform_plan_oidc.yaml@main
+  #   with:
+  #     ########################################################
+  #     # Terraform AZURERM Backend
+  #     # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
+  #     ########################################################
+  #     backend_resource_group_name: rg-backend-all
+  #     backend_storage_account_name: stbackendallgcmld
+  #     backend_container_name: blob-backend-all
+  #     backend_statefile_name: infra_1_prd.tfstate
+  #     ########################################################
+  #     # Terraform
+  #     ########################################################
+  #     terraform_version: 1.5.5
+  #     tfvars_filename: prd.tfvars
+  #     working_directory: infra_1
+  #   secrets:
+  #     ########################################################
+  #     # Terraform Azure Provider Authentication
+  #     # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform
+  #     ########################################################
+  #     arm_tenant_id: ${{ secrets.arm_tenant_id }}
+  #     arm_backend_subscription_id: ${{ secrets.arm_backend_subscription_id }}
+  #     arm_client_id: ${{ secrets.arm_client_id }}
+  #     arm_client_secret: ${{ secrets.arm_client_secret }}
 
 
-  deploy_prd:
-    if: github.event.pull_request.merged
-    needs: [plan_prd, deploy_val]
-    uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
-    with:
-      ########################################################
-      # Terraform AZURERM Backend
-      # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
-      ########################################################
-      backend_resource_group_name: rg-backend-all
-      backend_storage_account_name: stbackendallgcmld
-      backend_container_name: blob-backend-all
-      backend_statefile_name: infra_1_prd.tfstate
-      ########################################################
-      # Github
-      # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
-      ########################################################
-      github_environment: prd
-      ########################################################
-      # Terraform
-      ########################################################
-      terraform_version: 1.5.5
-      tfvars_filename: prd.tfvars
-      working_directory: infra_1
-    secrets:
-      ########################################################
-      # Terraform Azure Provider Authentication
-      # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform
-      ########################################################
-      arm_tenant_id: ${{ secrets.arm_tenant_id }}
-      arm_backend_subscription_id: ${{ secrets.arm_backend_subscription_id }}
-      arm_client_id: ${{ secrets.arm_client_id }}
-      arm_client_secret: ${{ secrets.arm_client_secret }}
+  # deploy_prd:
+  #   if: github.event.pull_request.merged
+  #   needs: [plan_prd, deploy_val]
+  #   uses: rigydi/workflows/.github/workflows/terraform_apply.yaml@main
+  #   with:
+  #     ########################################################
+  #     # Terraform AZURERM Backend
+  #     # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
+  #     ########################################################
+  #     backend_resource_group_name: rg-backend-all
+  #     backend_storage_account_name: stbackendallgcmld
+  #     backend_container_name: blob-backend-all
+  #     backend_statefile_name: infra_1_prd.tfstate
+  #     ########################################################
+  #     # Github
+  #     # https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
+  #     ########################################################
+  #     github_environment: prd
+  #     ########################################################
+  #     # Terraform
+  #     ########################################################
+  #     terraform_version: 1.5.5
+  #     tfvars_filename: prd.tfvars
+  #     working_directory: infra_1
+  #   secrets:
+  #     ########################################################
+  #     # Terraform Azure Provider Authentication
+  #     # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret#configuring-the-service-principal-in-terraform
+  #     ########################################################
+  #     arm_tenant_id: ${{ secrets.arm_tenant_id }}
+  #     arm_backend_subscription_id: ${{ secrets.arm_backend_subscription_id }}
+  #     arm_client_id: ${{ secrets.arm_client_id }}
+  #     arm_client_secret: ${{ secrets.arm_client_secret }}
