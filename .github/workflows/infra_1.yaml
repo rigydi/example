@@ -12,7 +12,7 @@ jobs:
   # Dev
   #########################################
   plan_dev:
-    uses: rigydi/workflows/.github/workflows/terraform_plan_oidc.yaml@main
+    uses: rigydi/workflows/.github/workflows/oidc_terraform_plan.yaml@main
     with:
       ########################################################
       # Terraform AZURERM Backend
