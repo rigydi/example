@@ -19,7 +19,7 @@ jobs:
       # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
       ########################################################
       backend_resource_group_name: rg-backend-all
-      backend_storage_account_name: stbackendallouju7
+      backend_storage_account_name: stbackendallgcmld
       backend_container_name: blob-backend-all
       backend_statefile_name: infra_1_dev.tfstate
       ########################################################
@@ -49,7 +49,7 @@ jobs:
       # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
       ########################################################
       backend_resource_group_name: rg-backend-all
-      backend_storage_account_name: stbackendallouju7
+      backend_storage_account_name: stbackendallgcmld
       backend_container_name: blob-backend-all
       backend_statefile_name: infra_1_dev.tfstate
       ########################################################
@@ -85,7 +85,7 @@ jobs:
       # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
       ########################################################
       backend_resource_group_name: rg-backend-all
-      backend_storage_account_name: stbackendallouju7
+      backend_storage_account_name: stbackendallgcmld
       backend_container_name: blob-backend-all
       backend_statefile_name: infra_1_val.tfstate
       ########################################################
@@ -115,7 +115,7 @@ jobs:
       # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
       ########################################################
       backend_resource_group_name: rg-backend-all
-      backend_storage_account_name: stbackendallouju7
+      backend_storage_account_name: stbackendallgcmld
       backend_container_name: blob-backend-all
       backend_statefile_name: infra_1_val.tfstate
       ########################################################
@@ -151,7 +151,7 @@ jobs:
       # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
       ########################################################
       backend_resource_group_name: rg-backend-all
-      backend_storage_account_name: stbackendallouju7
+      backend_storage_account_name: stbackendallgcmld
       backend_container_name: blob-backend-all
       backend_statefile_name: infra_1_prd.tfstate
       ########################################################
@@ -181,7 +181,7 @@ jobs:
       # https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
       ########################################################
       backend_resource_group_name: rg-backend-all
-      backend_storage_account_name: stbackendallouju7
+      backend_storage_account_name: stbackendallgcmld
       backend_container_name: blob-backend-all
       backend_statefile_name: infra_1_prd.tfstate
       ########################################################
