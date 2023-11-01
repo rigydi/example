@@ -12,7 +12,7 @@ jobs:
   # Dev
   #########################################
   plan_dev:
-    uses: rigydi/workflows/.github/workflows/terraform_plan.yaml@main
+    uses: rigydi/workflows/.github/workflows/terraform_plan_oidc.yaml@main
     with:
       ########################################################
       # Terraform AZURERM Backend
@@ -78,7 +78,7 @@ jobs:
   # Val
   #########################################
   plan_val:
-    uses: rigydi/workflows/.github/workflows/terraform_plan.yaml@main
+    uses: rigydi/workflows/.github/workflows/terraform_plan_oidc.yaml@main
     with:
       ########################################################
       # Terraform AZURERM Backend
@@ -144,7 +144,7 @@ jobs:
   # Prd
   #########################################
   plan_prd:
-    uses: rigydi/workflows/.github/workflows/terraform_plan.yaml@main
+    uses: rigydi/workflows/.github/workflows/terraform_plan_oidc.yaml@main
     with:
       ########################################################
       # Terraform AZURERM Backend
